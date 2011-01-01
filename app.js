@@ -38,7 +38,25 @@ app.get('/', function(req, res){
 	});
 });
 
+app.get('/words.:format', function(req, res) {
+	
+});
 
+app.post('/words.:format?', function(req, res) {
+	
+});
+
+app.get('/words/:word.:format?', function(req, res) {
+	
+});
+
+app.put('/words/:word.:format?', function(req, res) {
+	
+});
+
+app.del('/words/:word.:format?', function(req, res) {
+	
+});
 
 
 
