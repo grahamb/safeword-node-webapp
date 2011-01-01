@@ -12,7 +12,7 @@ mongoose.model('Word', {
 			year: Number,
 			month: Number,
 			day: Number,
-			dayofweek: str
+			dayofweek: String
 		},
 		lastused: {
 			timestamp: Number,
@@ -20,7 +20,7 @@ mongoose.model('Word', {
 			year: Number,
 			month: Number,
 			day: Number,
-			dayofweek: str
+			dayofweek: String
 		}
 	},
 	indexes: ['word', 'addedby', 'wordoftheday', 'lastused.timestamp']
@@ -29,3 +29,14 @@ mongoose.model('Word', {
 exports.Word = function(db) {
 	return db.model('Word');
 };
+
+// var mongoose = require('mongoose').Mongoose;
+// 
+// mongoose.model('Word', {
+//   properties: ['word', 'wordoftheday', 'addedby', 'created', 'lastused'],
+//   indexes: [ 'word', 'wordoftheday', 'addedby' ]
+// });
+// 
+// exports.Word = function(db) {
+//   return db.model('Word');
+// };
