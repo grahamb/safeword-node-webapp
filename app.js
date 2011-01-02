@@ -38,22 +38,47 @@ app.get('/', function(req, res){
 	});
 });
 
+// Get all words
 app.get('/words.:format', function(req, res) {
-	
+	Word.find().all(function(words) {
+		switch(req.params.format) {
+			case 'json': 
+				res.send(words.map(function(w) {
+					return w.__doc;
+				}));
+				break;
+				
+			default:
+				res.render('');
+		}
+	});
 });
 
-app.post('/words.:format?', function(req, res) {
-	
-});
-
+// Get specific word
 app.get('/words/:word.:format?', function(req, res) {
+	Word.find({word:req.params.word}).one(function(word) {
+		switch(req.params.format) {
+			case 'json': 
+				res.send(word.__doc);
+				break;
+				
+			default:
+				res.render('');
+		}
+	});
+});
+
+// Create new word
+app.post('/words/:word.:format?', function(req, res) {
 	
 });
 
+// Update existing word
 app.put('/words/:word.:format?', function(req, res) {
 	
 });
 
+// Delete word
 app.del('/words/:word.:format?', function(req, res) {
 	
 });
