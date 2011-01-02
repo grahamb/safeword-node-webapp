@@ -57,6 +57,8 @@ app.get('/words.:format', function(req, res) {
 // Get specific word
 app.get('/words/:word.:format?', function(req, res) {
 	Word.find({word:req.params.word}).one(function(word) {
+		// TODO implement 404 handling
+		if (!word) {return next(new NotFound('Document not found'));}
 		switch(req.params.format) {
 			case 'json': 
 				res.send(word.__doc);
@@ -80,7 +82,22 @@ app.put('/words/:word.:format?', function(req, res) {
 
 // Delete word
 app.del('/words/:word.:format?', function(req, res) {
-	
+	Word.find({word:req.params.word}).one(function(word) {
+		
+		// TODO implement 404 handling
+		if (!word) {return next(new NotFound('Document not found'));}
+		// 
+		word.remove(function() {
+			switch(req.params.format) {
+				case 'json':
+					res.send({status:'ok'});
+					break;
+				
+				default:
+					res.redirect('/words');
+			}
+		});
+	});
 });
 
 
