@@ -1,42 +1,43 @@
 var mongoose = require('mongoose').Mongoose;
 mongoose.model('Word', {
 	collection: 'words',
-	types: {
-		_id: Object,
-		word: String,
-		wordoftheday: Boolean,
-		addedby: String,
-		created: {
-			timestamp: Number,
-			str: String,
-			year: Number,
-			month: Number,
-			day: Number,
-			dayofweek: String
+	properties: [
+		'word',
+		'addedby', 
+		{
+			'created': [
+				'date',
+				'timestamp', 
+				'str', 
+				'year',
+				'month',
+				'day',
+				'dow'
+			]
 		},
-		lastused: {
-			timestamp: Number,
-			str: String,
-			year: Number,
-			month: Number,
-			day: Number,
-			dayofweek: String
-		}
-	},
-	indexes: ['word', 'addedby', 'wordoftheday', 'lastused.timestamp']
+		{
+			'lastused': [
+				'date',
+				'timestamp', 
+				'str', 
+				'year',
+				'month',
+				'day',
+				'dow'
+			]
+		},
+		'usagecount',
+		'wordoftheday'
+	],
+	indexes: [
+		[{word: 1}, {unique:true}],
+		'wordoftheday',
+		'addedby',
+		'lastused.timestamp'
+	]
 });
 
 exports.Word = function(db) {
 	return db.model('Word');
 };
 
-// var mongoose = require('mongoose').Mongoose;
-// 
-// mongoose.model('Word', {
-//   properties: ['word', 'wordoftheday', 'addedby', 'created', 'lastused'],
-//   indexes: [ 'word', 'wordoftheday', 'addedby' ]
-// });
-// 
-// exports.Word = function(db) {
-//   return db.model('Word');
-// };
