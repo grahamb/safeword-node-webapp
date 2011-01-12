@@ -12,7 +12,7 @@ mongoose.model('Word', {
 				'year',
 				'month',
 				'day',
-				'dow'
+				'dayofweek'
 			]
 		},
 		{
@@ -23,7 +23,7 @@ mongoose.model('Word', {
 				'year',
 				'month',
 				'day',
-				'dow'
+				'dayofweek'
 			]
 		},
 		'usagecount',
