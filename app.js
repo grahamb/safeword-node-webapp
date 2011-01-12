@@ -71,8 +71,54 @@ app.get('/words/:word.:format?', function(req, res) {
 });
 
 // Create new word
-app.post('/words/:word.:format?', function(req, res) {
+app.post('/words.:format?', function(req, res) {
+	var wordObj = JSON.parse(req.body.word)
+    ,   now = new Date()
+    ,   year = now.getFullYear()
+    ,   month = now.getMonth()
+    ,   monthStr = month.toString().length === 1 ? '0' + month.toString() : month.toString()
+    ,   day = now.getDate()
+    ,   dayStr = day.toString().length === 1 ? '0' + day.toString() : day.toString()
+    ,   dayofweek = now.getDay()
+    ,   word;
+
+	console.log('dow', dayofweek);
+
+    wordObj.created = {
+        date: new Date(),
+        timestamp: now.getTime(),
+        str: year.toString() + '-' + monthStr + '-' + dayStr,
+        year: year,
+        month: month,
+        day: day,
+        dayofweek: dayofweek
+    };
+	wordObj.lastused = {
+        date: null,
+        timestamp: 0,
+        str: null,
+        year: null,
+        month: null,
+        day: null,
+        dayofweek: null
+    };
+    wordObj.wordoftheday = false;
+	wordObj.usagecount = 0;
 	
+    word = new Word(wordObj);
+    var okfn = function() {
+        console.log(this);
+    };
+    word.save(function(okfn) {
+        switch(req.params.format) {
+            case 'json': 
+                res.send(word.__doc);
+                break;
+
+            default:
+                res.render('');
+        }
+    });
 });
 
 // Update existing word
