@@ -71,7 +71,7 @@ app.get('/words/:word.:format?', function(req, res) {
 });
 
 // Create new word
-app.post('/words.:format?', function(req, res) {
+app.post('/words.:format?', function(req, res) {	
 	var wordObj = JSON.parse(req.body.word)
     ,   now = new Date()
     ,   year = now.getFullYear()
@@ -80,11 +80,9 @@ app.post('/words.:format?', function(req, res) {
     ,   day = now.getDate()
     ,   dayStr = day.toString().length === 1 ? '0' + day.toString() : day.toString()
     ,   dayofweek = now.getDay()
-    ,   word;
-
-	console.log('dow', dayofweek);
-
-    wordObj.created = {
+    ,   newword;
+	
+	wordObj.created = {
         date: new Date(),
         timestamp: now.getTime(),
         str: year.toString() + '-' + monthStr + '-' + dayStr,
@@ -105,20 +103,37 @@ app.post('/words.:format?', function(req, res) {
     wordObj.wordoftheday = false;
 	wordObj.usagecount = 0;
 	
-    word = new Word(wordObj);
-    var okfn = function() {
-        console.log(this);
-    };
-    word.save(function(okfn) {
-        switch(req.params.format) {
-            case 'json': 
-                res.send(word.__doc);
-                break;
+    newword = new Word(wordObj);
 
-            default:
-                res.render('');
-        }
-    });
+	Word.find({word:wordObj.word}).one(function(existingword) {
+		if (existingword) {
+			switch(req.params.format) {
+				case 'json':
+					res.send({
+						"req": req.url,
+						"method": req.method,
+						"body": req.rawBody,
+						"error": "Word '" + wordObj.word + "' already exists",
+						"errorcode": "duplicateword"
+					});
+					break;
+					
+				default:
+					res.render('');
+			}
+		} else {
+			newword.save(function() {
+		        switch(req.params.format) {
+		            case 'json': 
+		                res.send(newword.__doc);
+		                break;
+
+		            default:
+		                res.render('');
+		        }
+		    });
+		}
+	});
 });
 
 // Update existing word
