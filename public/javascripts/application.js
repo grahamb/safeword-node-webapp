@@ -1,4 +1,5 @@
 (function($){
+	var popover_timer;
 	
 	$('li').hover(
 		function() {
@@ -59,10 +60,11 @@
 					});
 				}
 				
-				window.setTimeout(function() {$('#popover').css({left: left}).fadeIn();}, 500);
+				popover_timer = window.setTimeout(function() {$('#popover').css({left: left}).fadeIn();}, 500);
 			});
 		},
 		function(e) {
+			window.clearTimeout(popover_timer);
 			$('#popover').css({
 				left: '-999999px',
 				top: '-999999px'
