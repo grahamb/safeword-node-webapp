@@ -136,11 +136,6 @@ app.post('/words.:format?', function(req, res) {
 	});
 });
 
-// Update existing word
-app.put('/words/:word.:format?', function(req, res) {
-	
-});
-
 // Delete word
 app.del('/words/:word.:format?', function(req, res) {
 	Word.find({word:req.params.word}).one(function(word) {
