@@ -33,25 +33,31 @@ app.Word = Word = require('./models.js').Word(db);
 app.get('/', function(req, res){
 	res.render('index', {
 		locals: {
-			title: 'The Safeword'
-		}
-	});
+			title: "The Safeword"
+		}});
 });
 
 // Get all words
-app.get('/words.:format', function(req, res) {
-	Word.find().all(function(words) {
-		switch(req.params.format) {
-			case 'json': 
+app.get('/words.:format?', function(req, res) {
+
+	switch(req.params.format) {
+		case 'json': 
+			Word.find().all(function(words) {
 				res.send(words.map(function(w) {
 					return w.__doc;
 				}));
-				break;
-				
-			default:
-				res.render('');
-		}
-	});
+			});
+			break;
+			
+		default:
+			Word.find().sort([['wordoftheday', 'descending']]).all(function(words) {
+				res.render('words/index', {
+					locals: { words: words, wtf: 'what the frack' }
+				});
+			});
+			
+	}
+
 });
 
 // Get specific word
@@ -65,7 +71,9 @@ app.get('/words/:word.:format?', function(req, res) {
 				break;
 				
 			default:
-				res.render('');
+				res.render('words/word', {
+					locals: { word: word }
+				});
 		}
 	});
 });
