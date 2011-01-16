@@ -1,0 +1,7 @@
+h1 #{word.word}
+ul
+  li Added by 
+    a(href='http://twitter.com/' + word.addedby)#{word.addedby}
+  li Added on #{word.created.str}
+  li Last used on #{word.lastused.str}
+  li Used #{word.usagecount} times
