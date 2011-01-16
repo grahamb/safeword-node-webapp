@@ -1,4 +1,103 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background: #7FBDC9 url(https://si2.twimg.com/profile_background_images/190891423/xfde66cfad89db36ad191dc64476e844.jpg);
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+
+#container {
+	width: 800px;
+	margin: 0 auto;
+	overflow: auto;
+	padding: 0 0 a150px 0;
+}
+
+#word-list li {
+	list-style: none;
+	float: left;
+	display: inline;
+	padding: 20px;
+	width: 100px;
+	margin: 5px;
+	text-align: center;
+	border-radius: 5px;
+	background-color: rgba(0,0,0,0.5);
+	-webkit-transition: background-color .3s ease-in-out;
+	color: #fff;
+}
+
+#word-list a {
+	text-decoration: none;
+}
+
+#word-list li:hover {
+	cursor: pointer;
+	background-color: rgba(0,0,0,0.8);
+}
+
+
+#popover {
+	 background-color: #EDEDED;
+	 font-size: 12px;
+	 line-height: 1.3em;
+	 margin: 10px auto;
+	 padding: 10px;
+	 position: absolute;
+	 text-align: center;
+	 width: 300px;
+	 min-height: 100px;
+	 -moz-border-radius: 10px;
+	 -webkit-border-radius: 10px;
+	 -moz-box-shadow: 10px 10px 50px rgba(0, 0, 0, .9);
+	 -webkit-box-shadow: 10px 10px 50px rgba(0, 0, 0, .9);
+	 left: -999999px;
+	 top: -999999px;
+}
+
+#popover-arrow-border {
+	border-style: solid;
+	border-width: 10px;
+	height: 0;
+	width: 0;
+	position: absolute;
+	left: 30px;
+	border-color: transparent;
+}
+
+#popover-arrow-border.down {	
+	bottom: -22px;
+}
+
+#popover-arrow-border.up {
+	top: -22px;
+}
+
+#popover-arrow {
+	  border-style: solid;
+	  border-width: 10px;
+	  height: 0;
+	  width: 0;
+	  position: absolute;
+	  bottom: -19px;
+	  left: 30px;
+}
+
+#popover-arrow.down {
+	border-color: #EDEDED transparent transparent transparent;
+	bottom: -19px;
+	
+}
+
+#popover-arrow-up {
+	border-color: transparent transparent #EDEDED transparent;
+	top: -19px;
+}
+
+#popover-text li {
+	text-align: left;
+}
+
+li .wordoftheday {
+	background-color: green;
+	-webkit-transition: background-color .3s ease-in-out;
 }
