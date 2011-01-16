@@ -88,7 +88,7 @@ body {
 	
 }
 
-#popover-arrow-up {
+#popover-arrow.up {
 	border-color: transparent transparent #EDEDED transparent;
 	top: -19px;
 }
