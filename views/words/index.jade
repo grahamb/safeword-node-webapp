@@ -6,7 +6,7 @@ h1 Lunchgroup Heavy Industries
 ul#word-list
   - for (var w in words)
 		a(href='/words/' + words[w].word)
-			- var class = words[w].wordoftheday ? 'wordoftheday' : ''
+			- var class = words[w].wordoftheday ? 'wordoftheday' : 'word'
 			li(id=words[w].word, class=class)
 				span(href='/words/' + words[w].word)
 					=words[w].word
