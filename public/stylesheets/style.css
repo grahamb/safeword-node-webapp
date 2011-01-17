@@ -120,10 +120,10 @@ body {
 
 .wordoftheday {
  background-color: rgba(0,80,0,0.8); -webkit-box-shadow: 0 0 9px rgba(0,80,0,0.8);
- -webkit-animation-name: greenPulse;
- -webkit-animation-duration: 3s;
+/* -webkit-animation-name: greenPulse;
+ -webkit-animation-duration: 1s;
  -webkit-animation-direction: alternate;
  -webkit-animation-timing-function: ease-in-out;
- -webkit-animation-iteration-count: infinite;
-}
+ -webkit-animation-iteration-count: 5;
+*/}
 
