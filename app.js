@@ -1,8 +1,9 @@
-var express = require('express')
-,   app = module.exports = express.createServer()
+var express	 = require('express')
+,   app 	 = module.exports = express.createServer()
 ,	mongoose = require('mongoose').Mongoose
-,	db = mongoose.connect('mongodb://localhost/safeword')
-,	sys = require('sys')
+,	db       = mongoose.connect('mongodb://localhost/safeword')
+,	sys      = require('sys')
+,	OAuth    = require('oauth').OAuth
 ,	Word;
 
 
@@ -22,6 +23,7 @@ app.configure(function(){
 	app.use(express.favicon());
 	app.use(express.bodyDecoder());
 	app.use(express.cookieDecoder());
+	app.use(express.session());
 	app.use(express.logger({ format: '\x1b[1m:method\x1b[0m \x1b[33m:url\x1b[0m :response-time ms' }));
 	app.use(express.methodOverride());
 	app.use(app.router);
