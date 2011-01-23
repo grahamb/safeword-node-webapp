@@ -28,8 +28,9 @@ app.configure('production', function(){
 
 app.Word = Word = require('./models.js').Word(db);
 
-// Routes
-
+//////////////////////////////// 
+// Routes //////////////////////
+////////////////////////////////
 app.get('/', function(req, res){
 	// res.render('index', {
 	// 		locals: {
