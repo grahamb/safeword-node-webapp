@@ -2,6 +2,7 @@ var express = require('express')
 ,   app = module.exports = express.createServer()
 ,	mongoose = require('mongoose').Mongoose
 ,	db = mongoose.connect('mongodb://localhost/safeword')
+,	sys = require('sys')
 ,	Word;
 
 
