@@ -31,10 +31,11 @@ app.Word = Word = require('./models.js').Word(db);
 // Routes
 
 app.get('/', function(req, res){
-	res.render('index', {
-		locals: {
-			title: "The Safeword"
-		}});
+	// res.render('index', {
+	// 		locals: {
+	// 			title: "The Safeword"
+	// 		}});
+	res.redirect('/words');
 });
 
 // Get all words
@@ -146,8 +147,6 @@ app.get('/words/:word.:format?', function(req, res) {
 		}
 	});
 });
-
-
 
 // Delete word
 app.del('/words/:word.:format?', function(req, res) {
