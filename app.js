@@ -139,7 +139,9 @@ app.post('/words.:format?', function(req, res) {
 app.get('/words/:word.:format?', function(req, res, next) {
 	Word.find({word:req.params.word}).one(function(word) {
 		// TODO implement 404 handling
-		if (!word) {return next(new NotFound('Document not found'));}
+		if (!word) {
+			return next(new NotFound('Word not found'));
+		}
 		switch(req.params.format) {
 			case 'json': 
 				res.send(word.__doc);
@@ -158,7 +160,7 @@ app.del('/words/:word.:format?', function(req, res) {
 	Word.find({word:req.params.word}).one(function(word) {
 		
 		// TODO implement 404 handling
-		if (!word) {return next(new NotFound('Document not found'));}
+		if (!word) {return next(new NotFound('Word not found'));}
 		// 
 		word.remove(function() {
 			switch(req.params.format) {
@@ -174,8 +176,6 @@ app.del('/words/:word.:format?', function(req, res) {
 });
 
 
-
-
 ////////////////////////////////////////////////////////////////
 // Error Handling //////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -186,6 +186,15 @@ function NotFound(msg) {
 }
 
 sys.inherits(NotFound, Error);
+
+app.get('/404', function(req, res) {
+	throw new NotFound;
+});
+
+app.get('/500', function(req, res) {
+	throw new Error('An expected error');
+});
+
 app.get('/bad', function(req, res) {
 	unknownMethod();
 });
