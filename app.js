@@ -60,25 +60,10 @@ app.get('/words.:format?', function(req, res) {
 
 });
 
-// Get specific word
-app.get('/words/:word.:format?', function(req, res) {
-	Word.find({word:req.params.word}).one(function(word) {
-		// TODO implement 404 handling
-		if (!word) {return next(new NotFound('Document not found'));}
-		switch(req.params.format) {
-			case 'json': 
-				res.send(word.__doc);
-				break;
-				
-			default:
-				res.render('words/word', {
-					locals: { word: word }
-				});
-		}
-	});
-});
-
 // Create new word
+app.get('/words/new', function(req, res) {
+	res.render('words/new.jade');
+});
 app.post('/words.:format?', function(req, res) {	
 	var wordObj = JSON.parse(req.body.word)
     ,   now = new Date()
@@ -143,6 +128,26 @@ app.post('/words.:format?', function(req, res) {
 		}
 	});
 });
+
+// Get specific word
+app.get('/words/:word.:format?', function(req, res) {
+	Word.find({word:req.params.word}).one(function(word) {
+		// TODO implement 404 handling
+		if (!word) {return next(new NotFound('Document not found'));}
+		switch(req.params.format) {
+			case 'json': 
+				res.send(word.__doc);
+				break;
+				
+			default:
+				res.render('words/word', {
+					locals: { word: word }
+				});
+		}
+	});
+});
+
+
 
 // Delete word
 app.del('/words/:word.:format?', function(req, res) {
