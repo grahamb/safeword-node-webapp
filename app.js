@@ -9,24 +9,26 @@ var express = require('express')
 ////////////////////////////////////////////////////////////////
 // Configuration ///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
+app.configure('development', function(){
+	app.use(express.errorHandler({ dumpExceptions: true, showStackTrace: true })); 
+});
+
+app.configure('production', function(){
+});
+
 app.configure(function(){
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
+	app.use(express.favicon());
 	app.use(express.bodyDecoder());
+	app.use(express.cookieDecoder());
+	app.use(express.logger({ format: '\x1b[1m:method\x1b[0m \x1b[33m:url\x1b[0m :response-time ms' }));
 	app.use(express.methodOverride());
 	app.use(app.router);
 	app.use(express.staticProvider(__dirname + '/public'));
 });
 
-app.configure('development', function(){
-	app.use(express.logger());
-	app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-});
 
-app.configure('production', function(){
-	app.use(express.logger());
-	app.use(express.errorHandler()); 
-});
 
 app.Word = Word = require('./models.js').Word(db);
 
