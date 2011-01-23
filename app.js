@@ -172,8 +172,36 @@ app.del('/words/:word.:format?', function(req, res) {
 
 
 
+//////////////////////////////// 
+// Error Handling //////////////
+////////////////////////////////
+function NotFound(msg) {
+	this.name = 'NotFound';
+	Error.call(this, msg);
+	Error.captureStackTrace(this, arguments.callee);
+}
 
+sys.inherits(NotFound, Error);
+app.get('/bad', function(req, res) {
+  unknownMethod();
+});
 
+app.error(function(err, req, res, next) {
+	if (err instanceof NotFound) {
+		res.render('404.jade', { status: 404 });
+	} else {
+		next(err);
+	}
+});
+
+app.error(function(err, req, res) {
+	res.render('500.jade', {
+		status: 500,
+		locals: {
+			error: err
+		} 
+	});
+});
 
 
 
