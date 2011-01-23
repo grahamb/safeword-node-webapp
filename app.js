@@ -133,7 +133,7 @@ app.post('/words.:format?', function(req, res) {
 });
 
 // Get specific word
-app.get('/words/:word.:format?', function(req, res) {
+app.get('/words/:word.:format?', function(req, res, next) {
 	Word.find({word:req.params.word}).one(function(word) {
 		// TODO implement 404 handling
 		if (!word) {return next(new NotFound('Document not found'));}
